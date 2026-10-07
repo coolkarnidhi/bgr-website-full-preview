@@ -9,9 +9,9 @@
 <x-dc>
 <helmet><script src="./ds-base.js"></script><style>html,body{margin:0;padding:0;background:#fff}body{-webkit-font-smoothing:antialiased;overflow-x:clip}*{box-sizing:border-box}a{color:#2F6DB4;text-decoration:none}a:hover{color:#E41D26}</style></helmet>
 <div style="position:relative;font-family:'Inter',sans-serif;color:#16295B;background:#fff;overflow-x:clip">
-<dc-import name="SiteHeader" over-hero="{{ true }}" hint-size="100%,0px"></dc-import>
+<dc-import name="SiteHeader" over-hero="{{ false }}" hint-size="100%,0px"></dc-import>
 <section id="top" data-screen-label="01 Hero" style="position:relative">
-<div style="margin:10px;border-radius:10px;overflow:hidden;position:relative;background:#0C1834;min-height:calc(100vh - 20px);display:flex;flex-direction:column;justify-content:flex-end"><img src="assets/home/hero.jpg" alt="BGR-executed gas turbine power station at dusk, reflected in water" loading="eager" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;object-position:center 35%"><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,24,52,.05) 0%,rgba(12,24,52,.18) 45%,rgba(9,17,38,.72) 100%);pointer-events:none"></div><div style="position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:40px;padding:clamp(28px,5vh,60px) clamp(24px,4vw,56px)"><div><h1 style="font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-.03em;line-height:1.22;color:#fff;font-size:clamp(34px,4.8vw,68px);margin:0">Engineering Efficiency.<br>Enabling Performance.</h1><div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:26px"><a href="Investors.dc.html" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;border-radius:100px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:background 200ms,color 200ms,border-color 200ms;background:#E41D26;color:#fff;border:1px solid #E41D26" style-hover="background:#fff;color:#16295B;border-color:#fff">Investor Relations</a><a href="OurStory.dc.html" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;border-radius:100px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:background 200ms,color 200ms,border-color 200ms;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7)" style-hover="background:#fff;color:#16295B;border-color:#fff">Our Story</a></div></div><x-import component-from-global-scope="BGRDesignSystem.HeroCard" href="Investors.dc.html" eyebrow="Latest news" label="2026 Annual Report" image="{{ heroCardImage }}" hint-size="280px,240px"></x-import></div></div>
+<div style="margin:94px 10px 10px;border-radius:10px;overflow:hidden;position:relative;background:#0C1834;min-height:calc(100vh - 104px);display:flex;flex-direction:column;justify-content:flex-end"><img src="assets/home/hero.jpg" alt="BGR-executed gas turbine power station at dusk, reflected in water" loading="eager" fetchpriority="high" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;object-position:center 35%"><div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(12,24,52,.05) 0%,rgba(12,24,52,.18) 45%,rgba(9,17,38,.72) 100%);pointer-events:none"></div><div style="position:relative;display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:40px;padding:clamp(28px,5vh,60px) clamp(24px,4vw,56px)"><div><h1 style="font-family:'Manrope',sans-serif;font-weight:800;letter-spacing:-.03em;line-height:1.22;color:#fff;font-size:clamp(34px,4.8vw,68px);margin:0">Engineering Efficiency.<br>Enabling Performance.</h1><div style="display:flex;gap:14px;flex-wrap:wrap;margin-top:26px"><a href="Investors.dc.html" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;border-radius:100px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:background 200ms,color 200ms,border-color 200ms;background:#E41D26;color:#fff;border:1px solid #E41D26" style-hover="background:#fff;color:#16295B;border-color:#fff">Investor Relations</a><a href="OurStory.dc.html" style="display:inline-flex;align-items:center;justify-content:center;padding:14px 30px;border-radius:100px;font-family:'Manrope',sans-serif;font-size:13px;font-weight:600;letter-spacing:.01em;cursor:pointer;transition:background 200ms,color 200ms,border-color 200ms;background:transparent;color:#fff;border:1px solid rgba(255,255,255,.7)" style-hover="background:#fff;color:#16295B;border-color:#fff">Our Story</a></div></div><x-import component-from-global-scope="BGRDesignSystem.HeroCard" href="Investors.dc.html" eyebrow="Latest news" label="Annual Report 2025-26" image="{{ heroCardImage }}" hint-size="280px,240px"></x-import></div></div>
 </section>
 <section data-screen-label="02 Purpose and promise" ref="{{ purposeRef }}" style="position:relative;height:620vh;background:#fff">
 <div ref="{{ stageRef }}" style="position:sticky;top:0;height:100vh;overflow:hidden;background:#fff">
@@ -60,8 +60,8 @@
 </div>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,max(190px,22%)),1fr));gap:14px">
 <sc-for list="{{ news }}" as="n" hint-placeholder-count="3">
-<a href="NewsAndMedia.dc.html" style="display:flex;flex-direction:column;border:1px solid #C7CBD9;border-radius:6px;overflow:hidden;background:#fff;transition:border-color 200ms,box-shadow 200ms" style-hover="border-color:#E41D26;box-shadow:0 10px 24px rgba(22,41,91,.08)">
-<div style="aspect-ratio:8/5;background:#D6DFEE;display:flex;align-items:center;justify-content:center;color:#5A6788;font-size:12px">News image</div>
+<a href="{{ n.href }}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border:1px solid #C7CBD9;border-radius:6px;overflow:hidden;background:#fff;transition:border-color 200ms,box-shadow 200ms" style-hover="border-color:#E41D26;box-shadow:0 10px 24px rgba(22,41,91,.08)">
+<div style="aspect-ratio:8/5;background:#16295B;display:flex;align-items:center;justify-content:center;color:#fff;font-family:'Manrope',sans-serif;font-weight:700;font-size:16px;text-align:center;padding:14px;position:relative;overflow:hidden">{{ n.source }}<img src="{{ n.imgSrc }}" alt="Print clipping" style="display:{{ n.imgDisplay }};position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;background:#fff"></div>
 <div style="padding:14px 16px 16px">
 <div style="font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:#8B94AD">{{ n.meta }}</div>
 <div style="font-family:'Manrope',sans-serif;font-weight:600;font-size:14px;line-height:1.35;color:#16295B;margin-top:8px;text-wrap:pretty">{{ n.title }}</div>
@@ -119,6 +119,8 @@ class Component extends DCLogic {
   componentDidUpdate() { this.syncLive(); }
   componentDidMount() {
     setTimeout(() => this.syncLive(), 0);
+    this._auto = setInterval(() => { const el = this.clientsRef.current, nP = this._nP || 1; if (!el || nP < 2 || this._paused || document.hidden) return; const n = ((this.state.cPage || 0) + 1) % nP; el.scrollTo({ left: el.clientWidth * n, behavior: 'smooth' }); }, 3500);
+    const cel = this.clientsRef.current; if (cel) { this._pause = () => { this._paused = true; }; this._resume = () => { this._paused = false; }; ['mouseenter','focusin','touchstart'].forEach(e => cel.addEventListener(e, this._pause, { passive: true })); ['mouseleave','focusout','touchend'].forEach(e => cel.addEventListener(e, this._resume, { passive: true })); }
     this.onScroll = () => {
       const scrolled = window.scrollY > 40;
       this.drawPurpose();
@@ -133,7 +135,7 @@ class Component extends DCLogic {
     } else this.setState({ countP: 1.25 });
     this.onScroll();
   }
-  componentWillUnmount() { window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); if (this.io) this.io.disconnect(); }
+  componentWillUnmount() { clearInterval(this._auto); window.removeEventListener('scroll', this.onScroll); window.removeEventListener('resize', this.onScroll); if (this.io) this.io.disconnect(); }
   drawPurpose() {
     const sec = this.purposeRef.current, st = this.stageRef.current; if (!sec || !st) return;
     if (!this._pe) { this._pe = {}; st.querySelectorAll('[data-p]').forEach(e => { this._pe[e.getAttribute('data-p')] = e; }); }
@@ -264,8 +266,8 @@ class Component extends DCLogic {
       heroHeadline: React.createElement(React.Fragment, null, 'Engineering Efficiency.', React.createElement('br'), 'Enabling Performance.'),
       heroPrimary: { children: 'Investor Relations', href: 'Investors.dc.html' },
       heroSecondary: { children: 'Our Story', href: 'OurStory.dc.html' },
-      heroCardImage: { src: 'assets/home/hero-card.jpg', alt: 'Thermal power station on a riverbank' },
-      heroCard: { href: 'Investors.dc.html', eyebrow: 'Latest news', label: '2026 Annual Report', image: { src: 'assets/home/hero-card.jpg', alt: 'Thermal power station on a riverbank' } },
+      heroCardImage: { src: 'assets/home/hero-card-annual-report.jpg', alt: 'Cover of the BGR Energy Systems 40th Annual Report, 2025-26' },
+      heroCard: { href: 'Investors.dc.html', eyebrow: 'Latest news', label: 'Annual Report 2025-26', image: { src: 'assets/home/hero-card-annual-report.jpg', alt: 'Cover of the BGR Energy Systems 40th Annual Report, 2025-26' } },
       navLinks: [{ label: 'Investors', href: 'Investors.dc.html' }, { label: 'News and Media', href: 'NewsAndMedia.dc.html' }, { label: 'Careers', href: 'Careers.dc.html' }],
       menus: [
         { label: 'Who We Are', columns: [
@@ -278,10 +280,10 @@ class Component extends DCLogic {
           { label: 'Nuclear BOP & Conventional Island', links: [{ label: 'Explore Nuclear →', href: 'Nuclear.dc.html' }] }],
           footerLink: { label: 'View all our businesses →', href: 'OurBusinesses.dc.html' } }],
       news: [
-        { meta: '[DD Mon YYYY] · Stock exchange filing', title: 'Headline of the most recent filing, two lines at most.' },
-        { meta: '[DD Mon YYYY] · Press release', title: 'Headline of the most recent release, two lines at most.' },
-        { meta: '[DD Mon YYYY] · Company news', title: 'Headline of the most recent company story, two lines at most.' },
-        { meta: '[DD Mon YYYY] · Announcement', title: 'Headline of the most recent announcement, two lines at most.' }],
+        {"meta": "25 Sep 2026 · Press Trust of India", "title": "BGR Energy Systems shareholders approve MD Raghupathy's reappointment for 5 yrs", "href": "https://www.ptinews.com/story/business/bgr-energy-systems-shareholders-approve-md-raghupathy-s-reappointment-for-5-yrs/4100488", "imgSrc": "", "imgDisplay": "none", "source": "Press Trust of India"},
+        {"meta": "25 Sep 2026 · ET Edge Insights", "title": "BGR shareholders approve all key resolutions at 40th AGM", "href": "https://etedge-insights.com/press-release/bgr-shareholders-approve-all-key-resolutions-at-40th-agm/", "imgSrc": "", "imgDisplay": "none", "source": "ET Edge Insights"},
+        {"meta": "Sep 2026 · Dainik Bhaskar (print)", "title": "BGR AGM: Shareholders approve key board resolutions", "href": "assets/news/dainik-bhaskar-print-agm.jpg", "imgSrc": "assets/news/dainik-bhaskar-print-agm.jpg", "imgDisplay": "block", "source": "Dainik Bhaskar (print)"},
+        {"meta": "Sep 2026 · The Pioneer (print)", "title": "BGR shareholders approve all key resolutions at 40th AGM", "href": "assets/news/pioneer-hindi-print-agm.jpg", "imgSrc": "assets/news/pioneer-hindi-print-agm.jpg", "imgDisplay": "block", "source": "The Pioneer (print)"}],
       routes: [
         { title: 'Investors', description: 'Results, filings, governance, contacts', meta: 'P-300', href: 'Investors.dc.html' },
         { title: 'Media', description: 'Releases, media kit, spokespeople', meta: 'P-400', href: 'NewsAndMedia.dc.html' },
