@@ -19,7 +19,8 @@ class Component extends DCLogic {
       { label: 'Quarterly results', docs: fy => ['Q1', 'Q2', 'Q3', 'Q4'].map(q => q + ' results, ' + fy) },
       { label: 'Shareholding pattern', docs: fy => ['Q1', 'Q2', 'Q3', 'Q4'].map(q => 'Shareholding pattern, ' + q + ' ' + fy) },
       { label: 'AGM notices', docs: fy => ['AGM notice, ' + fy] },
-      { label: 'Corporate governance reports', docs: fy => ['Corporate governance report, ' + fy] }
+      { label: 'Corporate governance reports', docs: fy => ['Corporate governance report, ' + fy] },
+      { label: 'Stock exchange intimations', docs: fy => ['Stock exchange intimations, ' + fy] }
     ];
     const n = (c) => c + (c === 1 ? ' document' : ' documents');
     const byYear = this.state.view === 'year';
