@@ -18,9 +18,8 @@
 <h1 style="font-family:'Manrope',sans-serif;font-weight:400;letter-spacing:-.035em;line-height:1.08;font-size:clamp(40px,5.4vw,84px);margin:0;max-width:14ch;text-wrap:balance"><span style="color:#6F82B0">The latest from</span><br><span style="color:#16295B">BGR Energy.</span></h1>
 </div>
 <a href="{{ featured.href }}" target="_blank" rel="noopener" style="flex:0 0 clamp(270px,25vw,360px);width:clamp(270px,25vw,360px);display:flex;flex-direction:column;border:1px solid #C7CBD9;border-radius:6px;overflow:hidden;background:#fff;transition:border-color 200ms,box-shadow 200ms" style-hover="border-color:#E41D26;box-shadow:0 14px 32px rgba(22,41,91,.10)">
-<div style="aspect-ratio:16/9;background:#D6DFEE;position:relative;overflow:hidden"><img src="assets/home/hero-card.jpg" alt="Featured story" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover"></div>
 <div style="padding:clamp(16px,1.6vw,22px);display:flex;flex-direction:column;gap:10px">
-<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#8B94AD">Featured story</span><span style="padding:4px 11px;border-radius:100px;background:#F7F8FB;border:1px solid #E0E4EC;font-size:12px;font-weight:600;color:#16295B">{{ featured.cat }}</span></div>
+<div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap"><span style="font-family:'Manrope',sans-serif;font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#E41D26">Featured story</span><span style="padding:4px 11px;border-radius:100px;background:#F7F8FB;border:1px solid #E0E4EC;font-size:12px;font-weight:600;color:#16295B">{{ featured.cat }}</span></div>
 <div style="font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(14.5px,1.15vw,17px);line-height:1.35;letter-spacing:-.005em;color:#16295B">{{ featured.title }}</div>
 <div class="rm-link" style="font-size:12.5px;font-weight:700">Read more →</div>
 </div>
@@ -48,7 +47,7 @@
 <section data-screen-label="Story grid" style="position:relative;padding:clamp(32px,5vh,52px) 0 clamp(90px,12vh,140px)">
 <div style="max-width:1560px;margin:0 auto;padding:0 clamp(58px,7vw,132px);display:flex;flex-wrap:wrap;gap:clamp(32px,4vw,56px);align-items:flex-start">
 <div style="flex:1 1 560px;min-width:0">
-<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:18px"><div style="font-family:'Manrope',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#8B94AD">Latest stories</div><div style="font-size:12.5px;color:#8B94AD">{{ countLabel }}</div></div>
+<div style="display:flex;justify-content:space-between;align-items:baseline;gap:12px;margin-bottom:18px"><div style="font-family:'Manrope',sans-serif;font-weight:700;font-size:10.5px;letter-spacing:.18em;text-transform:uppercase;color:#E41D26">Latest stories</div><div style="font-size:12.5px;color:#8B94AD">{{ countLabel }}</div></div>
 <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:18px">
 <sc-for list="{{ stories }}" as="s" hint-placeholder-count="6">
 <a href="{{ s.href }}" target="_blank" rel="noopener" style="display:flex;flex-direction:column;border:1px solid #C7CBD9;border-radius:6px;overflow:hidden;background:#fff;transition:border-color 200ms,box-shadow 200ms,transform 200ms" style-hover="border-color:#E41D26;box-shadow:0 10px 24px rgba(22,41,91,.08);transform:translateY(-1px)">
