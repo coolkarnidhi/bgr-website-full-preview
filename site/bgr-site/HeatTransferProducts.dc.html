@@ -40,7 +40,9 @@
 class Component extends DCLogic {
   state = { sel: 2 };
   static data() { return {"n": 5, "mode": "hot", "sel0": 2, "items": [{"t": "Hot process fluid in", "d": "Process fluid arrives hot and flows through the tubes, carrying the heat that has to be rejected."}, {"t": "Finned tube bundle", "d": "Fins multiply the surface area. Tube materials and fin technology are chosen to meet each process's thermal and mechanical requirements."}, {"t": "Fans", "d": "Fans draw ambient air across the bundle. Heat leaves with the air, so no cooling water is needed."}, {"t": "Heat to atmosphere", "d": "Air cooled heat exchangers reject process heat to the atmosphere rather than to water, the natural choice where water is scarce or costly."}, {"t": "Cooled fluid out", "d": "Fluid returns to the process at the temperature it was designed for, so critical operations keep running."}]}; }
-  componentDidMount() { this._t = setInterval(() => { if (this._user) return; const n = Component.data().n; this.setState({ sel: (this.state.sel + 1) % n }); }, 4200); }
+  componentDidMount() {
+    try { if (sessionStorage.getItem('bgrExpand')) { sessionStorage.removeItem('bgrExpand'); const c = document.createElement('div'); c.setAttribute('aria-hidden', 'true'); c.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#091126;opacity:1;transition:opacity 700ms ease;pointer-events:none'; document.body.appendChild(c); requestAnimationFrame(() => requestAnimationFrame(() => { c.style.opacity = '0'; })); setTimeout(() => { if (c.parentNode) c.parentNode.removeChild(c); }, 900); } } catch (x) {}
+    this._t = setInterval(() => { if (this._user) return; const n = Component.data().n; this.setState({ sel: (this.state.sel + 1) % n }); }, 4200); }
   componentWillUnmount() { clearInterval(this._t); }
   renderVals() {
     const D = Component.data(), s = this.state.sel, o = {};

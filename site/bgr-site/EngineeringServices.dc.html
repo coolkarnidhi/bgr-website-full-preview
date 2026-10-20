@@ -40,7 +40,9 @@
 class Component extends DCLogic {
   state = { sel: 0 };
   static data() { return {"n": 5, "mode": "stage", "sel0": 0, "items": [{"t": "Engineering design", "d": "Design decisions carry real consequences for cost, schedule and performance. Ours are informed by decades on large power and infrastructure projects."}, {"t": "Detailed engineering", "d": "Practical as well as rigorous: shaped by engineers who understand how a drawing becomes a working plant."}, {"t": "Technical documentation", "d": "Clear, complete technical documentation, produced with advanced digital engineering tools for speed, accuracy and collaboration."}, {"t": "Project engineering support", "d": "An experienced engineering workforce, deployed flexibly on an asset-light model, standing alongside the project on site."}, {"t": "Commissioning", "d": "Our engineers have stood on sites, interfaced systems and seen designs through to commissioning."}]}; }
-  componentDidMount() { this._t = setInterval(() => { if (this._user) return; const n = Component.data().n; this.setState({ sel: (this.state.sel + 1) % n }); }, 4200); }
+  componentDidMount() {
+    try { if (sessionStorage.getItem('bgrExpand')) { sessionStorage.removeItem('bgrExpand'); const c = document.createElement('div'); c.setAttribute('aria-hidden', 'true'); c.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#091126;opacity:1;transition:opacity 700ms ease;pointer-events:none'; document.body.appendChild(c); requestAnimationFrame(() => requestAnimationFrame(() => { c.style.opacity = '0'; })); setTimeout(() => { if (c.parentNode) c.parentNode.removeChild(c); }, 900); } } catch (x) {}
+    this._t = setInterval(() => { if (this._user) return; const n = Component.data().n; this.setState({ sel: (this.state.sel + 1) % n }); }, 4200); }
   componentWillUnmount() { clearInterval(this._t); }
   renderVals() {
     const D = Component.data(), s = this.state.sel, o = {};

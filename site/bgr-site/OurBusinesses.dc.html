@@ -12,7 +12,7 @@
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch">
 <div style="flex:0 0 clamp(300px,33vw,500px);min-width:0;align-self:flex-start;height:clamp(380px,54vh,520px);padding:0 clamp(8px,1.6vw,32px) 0 0;display:flex;flex-direction:column;justify-content:flex-end"><div style="font-family:'Inter',sans-serif;font-size:14px;color:#8B94AD;margin-bottom:26px">Our Businesses</div><h1 style="font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(34px,3.9vw,56px);line-height:1.08;letter-spacing:-.032em;margin:0"><span style="color:#6F82B0">Three businesses,</span><br><span style="color:#16295B">one operating promise.</span></h1><p style="font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;color:#5A6788;margin:22px 0 0;max-width:40ch;text-wrap:pretty">Our businesses are built for scale and resilience, and generate more regular, recurring revenue as our EPC work gives way to services and products.</p></div>
 <sc-for list="{{ bizCards }}" as="c" hint-placeholder-count="3">
-<a href="{{ c.href }}" onMouseEnter="{{ c.onEnter }}" onMouseLeave="{{ c.onLeave }}" onFocus="{{ c.onEnter }}" onBlur="{{ c.onLeave }}" data-bizc="{{ c.idx }}" style="position:relative;display:block;flex:1 1 0;min-width:150px;align-self:flex-start;margin-top:{{ c.mt }};height:{{ c.h }};border-radius:6px;overflow:hidden;background:#D6DFEE;color:#fff;text-decoration:none;transition:flex-grow 600ms cubic-bezier(.22,1,.36,1)">
+<a href="{{ c.href }}" onClick="{{ c.onClick }}" onMouseEnter="{{ c.onEnter }}" onMouseLeave="{{ c.onLeave }}" onFocus="{{ c.onEnter }}" onBlur="{{ c.onLeave }}" data-bizc="{{ c.idx }}" style="position:relative;display:block;flex:1 1 0;min-width:150px;align-self:flex-start;margin-top:{{ c.mt }};height:{{ c.h }};border-radius:6px;overflow:hidden;background:#D6DFEE;color:#fff;text-decoration:none;transition:flex-grow 600ms cubic-bezier(.22,1,.36,1)">
 <img src="{{ c.src }}" alt="{{ c.alt }}" loading="lazy" data-part="img" data-pos="{{ c.pos }}" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1);transition:transform 900ms cubic-bezier(.22,1,.36,1)">
 <div aria-hidden="true" style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(9,17,38,0) 40%,rgba(9,17,38,.72) 100%);pointer-events:none"></div>
 <div aria-hidden="true" data-part="shade" style="position:absolute;inset:0;background:rgba(12,24,52,.62);opacity:0;transition:opacity 600ms cubic-bezier(.22,1,.36,1);pointer-events:none"></div>
@@ -30,6 +30,25 @@
 <script type="text/x-dc" data-dc-script>
 class Component extends DCLogic {
   state = { scrolled: false, stop: 0, bizHover: -1 };
+  expandTo(e, href, src) {
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;
+    if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    e.preventDefault();
+    if (this._expanding) return; this._expanding = true;
+    const card = e.currentTarget, r = card.getBoundingClientRect();
+    const ov = document.createElement('div');
+    ov.setAttribute('aria-hidden', 'true');
+    ov.style.cssText = 'position:fixed;z-index:9999;left:' + r.left + 'px;top:' + r.top + 'px;width:' + r.width + 'px;height:' + r.height + 'px;border-radius:6px;overflow:hidden;background:#0C1834 url(' + src + ') center/cover;transition:left 760ms cubic-bezier(.76,0,.24,1),top 760ms cubic-bezier(.76,0,.24,1),width 760ms cubic-bezier(.76,0,.24,1),height 760ms cubic-bezier(.76,0,.24,1),border-radius 760ms cubic-bezier(.76,0,.24,1)';
+    const sh = document.createElement('div');
+    sh.style.cssText = 'position:absolute;inset:0;background:#091126;opacity:0;transition:opacity 760ms ease';
+    ov.appendChild(sh); document.body.appendChild(ov);
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      ov.style.left = '0px'; ov.style.top = '0px'; ov.style.width = '100vw'; ov.style.height = '100vh'; ov.style.borderRadius = '0px'; sh.style.opacity = '.9';
+    }));
+    try { sessionStorage.setItem('bgrExpand', '1'); } catch (x) {}
+    setTimeout(() => { window.location.href = href; }, 800);
+    setTimeout(() => { this._expanding = false; if (ov.parentNode) ov.parentNode.removeChild(ov); }, 2500);
+  }
   syncBizImgs() { const hb = this.state.bizHover; document.querySelectorAll('[data-bizc]').forEach(el => { const on = +el.dataset.bizc === hb; el.style.flexGrow = on ? 1.8 : 1; const img = el.querySelector('[data-part="img"]'), sh = el.querySelector('[data-part="shade"]'), bd = el.querySelector('[data-part="body"]'); if (img) { if (img.dataset.pos) img.style.objectPosition = img.dataset.pos; img.style.transform = on ? 'scale(1.04)' : 'scale(1)'; } if (sh) sh.style.opacity = on ? 1 : 0; if (bd) { bd.style.gridTemplateRows = on ? '1fr' : '0fr'; bd.style.opacity = on ? 1 : 0; bd.style.transition = 'grid-template-rows 600ms cubic-bezier(.22,1,.36,1), opacity 400ms ease ' + (on ? '120ms' : '0ms'); } }); }
   componentDidUpdate() { this.syncBizImgs(); }
   purposeRef = React.createRef();
@@ -66,7 +85,7 @@ class Component extends DCLogic {
       { title: 'Digital, Engineering and AI Services', img: { src: 'assets/home/biz-engineering-people.jpg', alt: 'Two BGR engineers reviewing drawings beside large debris filter systems', pos: '28% 60%' }, lead: 'Multi-discipline engineering and AI-enabled digital delivery for global EPCs, owner-operators and infrastructure developers across energy, O&G, data centres and process industries.', bullets: ['40-year, 15,000+ MW execution record', 'Domain depth, technology tools and execution rigour', 'Experienced mechanical, electrical and process engineers with a real project delivery track record'], why: 'the export-oriented engineering services market accessible from talent-rich centres is estimated at about INR 90,000 Cr annually, growing 10 to 15% a year.', href: 'EngineeringServices.dc.html', cta: 'Explore Engineering Services →' },
       { title: 'Nuclear BOP and Conventional Island', img: { src: 'assets/home/biz-nuclear-tower.jpg', alt: 'Illuminated cooling tower at dusk', pos: 'center 60%' }, lead: 'BOP and conventional island engineering and supply.', bullets: ['An existing NPCIL track record in nuclear BOP', 'Turbine island and BOP capability from thermal EPC'], why: 'India is entering its fastest nuclear expansion in three decades.', href: 'Nuclear.dc.html', cta: 'Explore Nuclear →' }];
     return {
-      bizCards: BIZ.map((b, i) => ({ idx: i, mt: (i * 60) + 'px', h: 'clamp(380px,54vh,520px)', pos: b.img.pos || '', n: '0' + (i + 1), title: b.title, lead: b.lead, cta: b.cta, href: b.href, src: b.img.src, alt: b.img.alt, onEnter: () => this.setState({ bizHover: i }), onLeave: () => this.setState(s => (s.bizHover === i ? { bizHover: -1 } : null)) })),
+      bizCards: BIZ.map((b, i) => ({ idx: i, onClick: (e) => this.expandTo(e, b.href, b.img.src), mt: (i * 60) + 'px', h: 'clamp(380px,54vh,520px)', pos: b.img.pos || '', n: '0' + (i + 1), title: b.title, lead: b.lead, cta: b.cta, href: b.href, src: b.img.src, alt: b.img.alt, onEnter: () => this.setState({ bizHover: i }), onLeave: () => this.setState(s => (s.bizHover === i ? { bizHover: -1 } : null)) })),
       purposeRef: this.purposeRef,
       headerTransparent: !this.state.scrolled,
       stopIndex: this.state.stop,

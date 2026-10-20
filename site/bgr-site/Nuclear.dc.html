@@ -40,7 +40,9 @@
 class Component extends DCLogic {
   state = { sel: 1 };
   static data() { return {"n": 4, "mode": "hot", "sel0": 1, "items": [{"t": "Nuclear island", "d": "The reactor and its containment, the heart of the plant. The conventional island and balance of plant are built around it."}, {"t": "Conventional island", "d": "The turbine island: turbine, generator and the systems that turn steam into electricity, drawing on our thermal EPC capability."}, {"t": "Balance of plant", "d": "Cooling water and the supporting systems that keep a nuclear plant running safely and reliably."}, {"t": "Electrical and instrumentation", "d": "Electrical and instrumentation packages delivered at the Kudankulam, Kakrapar and Rawatbhata nuclear projects."}]}; }
-  componentDidMount() { this._t = setInterval(() => { if (this._user) return; const n = Component.data().n; this.setState({ sel: (this.state.sel + 1) % n }); }, 4200); }
+  componentDidMount() {
+    try { if (sessionStorage.getItem('bgrExpand')) { sessionStorage.removeItem('bgrExpand'); const c = document.createElement('div'); c.setAttribute('aria-hidden', 'true'); c.style.cssText = 'position:fixed;inset:0;z-index:9999;background:#091126;opacity:1;transition:opacity 700ms ease;pointer-events:none'; document.body.appendChild(c); requestAnimationFrame(() => requestAnimationFrame(() => { c.style.opacity = '0'; })); setTimeout(() => { if (c.parentNode) c.parentNode.removeChild(c); }, 900); } } catch (x) {}
+    this._t = setInterval(() => { if (this._user) return; const n = Component.data().n; this.setState({ sel: (this.state.sel + 1) % n }); }, 4200); }
   componentWillUnmount() { clearInterval(this._t); }
   renderVals() {
     const D = Component.data(), s = this.state.sel, o = {};
