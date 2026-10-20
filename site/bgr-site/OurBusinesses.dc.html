@@ -7,7 +7,7 @@
 </head>
 <body>
 <x-dc>
-<helmet><script src="./ds-base.js"></script><style>html,body{margin:0;padding:0;background:#fff}body{-webkit-font-smoothing:antialiased;overflow-x:clip}*{box-sizing:border-box}a{color:#2F6DB4;text-decoration:none}a:hover{color:#E41D26}</style></helmet><div style="position:relative;font-family:'Inter',sans-serif;color:#16295B;background:#fff;overflow-x:clip"><dc-import name="SiteHeader" hint-size="100%,0px"></dc-import><main data-screen-label="Our Businesses"><section id="businesses" data-screen-label="Businesses" style="position:relative;padding:clamp(120px,16vh,150px) 0 clamp(70px,10vh,120px)">
+<helmet><script src="./ds-base.js"></script><style>html,body{margin:0;padding:0;background:#fff}body{-webkit-font-smoothing:antialiased;overflow-x:clip}*{box-sizing:border-box}a{color:#2F6DB4;text-decoration:none}a:hover{color:#E41D26}.bgr-exp header a{color:#fff!important}</style></helmet><div style="position:relative;font-family:'Inter',sans-serif;color:#16295B;background:#fff;overflow-x:clip"><dc-import name="SiteHeader" hint-size="100%,0px"></dc-import><main data-screen-label="Our Businesses"><section id="businesses" data-screen-label="Businesses" style="position:relative;padding:clamp(120px,16vh,150px) 0 clamp(70px,10vh,120px)">
 <div style="max-width:1560px;margin:0 auto;padding:0 clamp(58px,7vw,132px)">
 <div style="display:flex;flex-wrap:wrap;gap:12px;align-items:stretch">
 <div style="flex:0 0 clamp(300px,33vw,500px);min-width:0;align-self:flex-start;height:clamp(380px,54vh,520px);padding:0 clamp(8px,1.6vw,32px) 0 0;display:flex;flex-direction:column;justify-content:flex-end"><div style="font-family:'Inter',sans-serif;font-size:14px;color:#8B94AD;margin-bottom:26px">Our Businesses</div><h1 style="font-family:'Manrope',sans-serif;font-weight:500;font-size:clamp(34px,3.9vw,56px);line-height:1.08;letter-spacing:-.032em;margin:0"><span style="color:#6F82B0">Three businesses,</span><br><span style="color:#16295B">one operating promise.</span></h1><p style="font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;color:#5A6788;margin:22px 0 0;max-width:40ch;text-wrap:pretty">Our businesses are built for scale and resilience, and generate more regular, recurring revenue as our EPC work gives way to services and products.</p></div>
@@ -33,9 +33,10 @@ class Component extends DCLogic {
   expandTo(e, href, src) {
     if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;
     if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    const card = e.currentTarget;
     e.preventDefault();
     if (this._expanding) return; this._expanding = true;
-    const card = e.currentTarget, r = card.getBoundingClientRect(), im = card.querySelector('[data-part="img"]'), pos = (im && im.dataset.pos) || 'center';
+    const r = card.getBoundingClientRect(), im = card.querySelector('[data-part="img"]'), pos = (im && im.dataset.pos) || 'center';
     const ease = 'cubic-bezier(.76,0,.24,1)', T = '760ms';
     const ov = document.createElement('div');
     ov.setAttribute('aria-hidden', 'true');
@@ -43,12 +44,13 @@ class Component extends DCLogic {
     const sh = document.createElement('div');
     sh.style.cssText = 'position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,17,38,.95) 0%,rgba(9,17,38,.9) 45%,rgba(9,17,38,.82) 100%);opacity:0;transition:opacity ' + T + ' ease';
     ov.appendChild(sh); document.body.appendChild(ov);
+    document.body.classList.add('bgr-exp');
     requestAnimationFrame(() => requestAnimationFrame(() => {
-      ov.style.left = '0px'; ov.style.top = '94px'; ov.style.width = '100vw'; ov.style.height = 'calc(100vh - 94px)'; ov.style.borderRadius = '0px'; sh.style.opacity = '1';
+      ov.style.left = '0px'; ov.style.top = '0px'; ov.style.width = '100vw'; ov.style.height = '100vh'; ov.style.borderRadius = '0px'; sh.style.opacity = '1';
     }));
     try { sessionStorage.setItem('bgrExpand', JSON.stringify({ src: src, pos: pos })); } catch (x) {}
     setTimeout(() => { window.location.href = href; }, 800);
-    setTimeout(() => { this._expanding = false; if (ov.parentNode) ov.parentNode.removeChild(ov); }, 2500);
+    setTimeout(() => { this._expanding = false; document.body.classList.remove('bgr-exp'); if (ov.parentNode) ov.parentNode.removeChild(ov); }, 2500);
   }
   syncBizImgs() { const hb = this.state.bizHover; document.querySelectorAll('[data-bizc]').forEach(el => { const on = +el.dataset.bizc === hb; el.style.flexGrow = on ? 1.8 : 1; const img = el.querySelector('[data-part="img"]'), sh = el.querySelector('[data-part="shade"]'), bd = el.querySelector('[data-part="body"]'); if (img) { if (img.dataset.pos) img.style.objectPosition = img.dataset.pos; img.style.transform = on ? 'scale(1.04)' : 'scale(1)'; } if (sh) sh.style.opacity = on ? 1 : 0; if (bd) { bd.style.gridTemplateRows = on ? '1fr' : '0fr'; bd.style.opacity = on ? 1 : 0; bd.style.transition = 'grid-template-rows 600ms cubic-bezier(.22,1,.36,1), opacity 400ms ease ' + (on ? '120ms' : '0ms'); } }); }
   componentDidUpdate() { this.syncBizImgs(); }
