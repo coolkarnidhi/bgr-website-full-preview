@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<style>html,body{background:#0C1834}</style><script>try{{var d=sessionStorage.getItem('bgrExpand');if(d){var o=JSON.parse(d);var c=document.createElement('div');c.id='bgr-cover';c.setAttribute('aria-hidden','true');c.style.cssText='position:fixed;inset:0;z-index:50;background:#0C1834 url('+o.src+') '+(o.pos||'center')+'/cover no-repeat;transition:opacity 700ms ease;pointer-events:none';var s=document.createElement('div');s.style.cssText='position:absolute;inset:0;background:linear-gradient(90deg,rgba(9,17,38,.95) 0%,rgba(9,17,38,.9) 45%,rgba(9,17,38,.82) 100%)';c.appendChild(s);document.documentElement.appendChild(c)}}}catch(e){}</script>
+<style>html,body{background:#0C1834}</style><base target="_top"><script>if(window.top!==window){document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a');if(!a)return;var h=a.getAttribute('href')||'';if(h.indexOf('OurBusinesses')===0){e.preventDefault();parent.postMessage({bgrClose:1},'*')}},true)}</script>
 <script src="./support.js"></script>
 </head>
 <body>
@@ -41,7 +41,6 @@ class Component extends DCLogic {
   state = { sel: 1 };
   static data() { return {"n": 4, "mode": "hot", "sel0": 1, "items": [{"t": "Nuclear island", "d": "The reactor and its containment, the heart of the plant. The conventional island and balance of plant are built around it."}, {"t": "Conventional island", "d": "The turbine island: turbine, generator and the systems that turn steam into electricity, drawing on our thermal EPC capability."}, {"t": "Balance of plant", "d": "Cooling water and the supporting systems that keep a nuclear plant running safely and reliably."}, {"t": "Electrical and instrumentation", "d": "Electrical and instrumentation packages delivered at the Kudankulam, Kakrapar and Rawatbhata nuclear projects."}]}; }
   componentDidMount() {
-    try { const c = document.getElementById('bgr-cover'); if (c) { sessionStorage.removeItem('bgrExpand'); setTimeout(() => { c.style.opacity = '0'; }, 250); setTimeout(() => { if (c.parentNode) c.parentNode.removeChild(c); }, 1100); } } catch (x) {}
     this._t = setInterval(() => { if (this._user) return; const n = Component.data().n; this.setState({ sel: (this.state.sel + 1) % n }); }, 4200); }
   componentWillUnmount() { clearInterval(this._t); }
   renderVals() {
