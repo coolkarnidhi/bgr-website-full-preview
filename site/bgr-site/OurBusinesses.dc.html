@@ -68,6 +68,27 @@ class Component extends DCLogic {
     }));
     setTimeout(() => { expanded = true; reveal(); }, 800);
   }
+  swapBiz(href) {
+    const b = this._biz; if (!b || this._swapping) return; this._swapping = true;
+    const old = b.fr, fr = document.createElement('iframe');
+    fr.setAttribute('title', 'Business page'); fr.src = href;
+    fr.style.cssText = 'position:fixed;inset:0;width:100%;height:100%;border:0;z-index:101;background:#0C1834;opacity:0;pointer-events:none';
+    document.body.appendChild(fr);
+    const t0 = performance.now(); let done = false;
+    const go = () => {
+      if (done) return; done = true;
+      fr.style.transition = 'opacity 450ms ease'; fr.style.opacity = '1'; fr.style.pointerEvents = 'auto';
+      try { history.replaceState({ bizOpen: href }, '', href); } catch (x) {}
+      this._biz = { fr: fr, ov: null };
+      setTimeout(() => { if (old.parentNode) old.parentNode.removeChild(old); fr.style.zIndex = '100'; this._swapping = false; }, 520);
+    };
+    const poll = () => {
+      try { const d = fr.contentDocument; if (d && d.readyState === 'complete' && d.querySelector('.stage') && d.querySelector('header')) { setTimeout(go, 250); return; } } catch (x) {}
+      if (performance.now() - t0 > 6000) { window.location.href = href; return; }
+      setTimeout(poll, 60);
+    };
+    fr.addEventListener('load', poll); poll();
+  }
   closeBiz() {
     const b = this._biz; if (!b) return; this._biz = null;
     const fr = b.fr; fr.style.transition = 'opacity 300ms ease'; fr.style.opacity = '0';
@@ -78,7 +99,7 @@ class Component extends DCLogic {
   purposeRef = React.createRef();
   componentDidMount() {
     this._pop = () => { if (this._biz) this.closeBiz(); };
-    this._msg = (ev) => { if (ev.data && ev.data.bgrClose && this._biz) history.back(); };
+    this._msg = (ev) => { if (!ev.data || !this._biz) return; if (ev.data.bgrClose) history.back(); else if (ev.data.bgrGo) this.swapBiz(ev.data.bgrGo); };
     window.addEventListener('popstate', this._pop);
     window.addEventListener('message', this._msg);
     this.syncBizImgs();
