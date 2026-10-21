@@ -12,7 +12,6 @@
 <div style="flex:1 1 260px;max-width:320px;display:flex;flex-direction:column;gap:16px;font-size:12px;line-height:1.65;color:#8B94AD">
 <a href="BgrSite.dc.html" aria-label="BGR Energy Systems home" style="display:flex;align-items:center;gap:7px;font-family:'Manrope',sans-serif;font-size:14px;letter-spacing:.14em;text-transform:uppercase;color:#16295B"><img src="assets/bgr-logo.png" alt="" style="display:block;width:34px;height:34px;margin-right:4px"><span style="font-weight:800">BGR</span><span style="font-weight:400">Energy Systems</span></a>
 <div>CIN L40106AP1985PLC005318<br>Registered office: E-4, Pannamgadu Industrial Estate, Ramapuram Post, Tada Mandalam, Tirupathi District, Andhra Pradesh 524401<br>Corporate office: 443 Anna Salai, Teynampet, Chennai 600018</div>
-<a href="InvestorsShareholder.dc.html#reg46" style="font-size:12px;font-weight:600;color:#43517D;transition:color 200ms" style-hover="color:#E41D26">Regulation 46(2) disclosures (SEBI LODR) →</a>
 </div>
 <div style="flex:3 1 560px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px">
 <sc-for list="{{ footerCols }}" as="col" hint-placeholder-count="4">
@@ -37,10 +36,10 @@ class Component extends DCLogic {
     const m = a => a.map(([label, f]) => ({ label, href: f.startsWith('http') ? f : f.replace(/(#|$)/, '.dc.html$1') }));
     return {
       footerCols: [
-        { label: 'Who We Are', links: m([['Our Principles', 'WhoWeAre#purpose'], ['Our Story', 'OurStory'], ['Why BGR Wins', 'WhoWeAre#why-bgr-wins'], ['How We Build', 'WhoWeAre#how-we-build'], ['Leadership and Board', 'LeadershipAndBoard'], ['Track Record and EPC Capabilities', 'TrackRecord']]) },
-        { label: 'Our Businesses', links: m([['Heat Transfer Products', 'HeatTransferProducts'], ['Digital & Engineering Services', 'EngineeringServices'], ['Nuclear BOP and Conventional Island', 'Nuclear']]) },
-        { label: 'Investors', links: m([['Investor Relations home', 'Investors'], ['Financial Results', 'Investors'], ['Annual Reports', 'Investors'], ['Stock Exchange Filings', 'Investors'], ['Corporate Governance', 'Investors'], ['Investor Contact', 'Contact']]) },
-        { label: 'Company', links: m([['News and Media', 'NewsAndMedia'], ['Careers', 'Careers'], ['Contact', 'Contact'], ['Suppliers', 'Suppliers'], ['Project Partners', 'ProjectPartners'], ['Employee Portal', 'EmployeePortal']]) }],
+        { label: 'About Us', links: m([['Who We Are', 'WhoWeAre'], ['Our Story', 'OurStory'], ['Leadership', 'LeadershipAndBoard'], ['Track Record', 'TrackRecord']]) },
+        { label: 'Our Businesses', links: m([['BGR Cooling', 'HeatTransferProducts'], ['BGR Design & Engineering', 'EngineeringServices'], ['BGR Nuclear', 'Nuclear']]) },
+        { label: 'Investors', links: m([['Latest News', 'Investors'], ['Archival Information', 'InvestorsArchive'], ['Governance & Disclosures', 'InvestorsShareholder']]) },
+        { label: 'Company', links: m([['Careers', 'Careers'], ['Newsroom', 'NewsAndMedia'], ['Contact', 'Contact']]) }],
       legalLinks: m([['Privacy Policy', 'Privacy'], ['Terms of Use', 'Terms'], ['Cookie Preferences', 'Cookies'], ['Accessibility Statement', 'Accessibility'], ['Disclaimer', 'Disclaimer'], ['Sitemap', 'Sitemap']])
     };
   }
